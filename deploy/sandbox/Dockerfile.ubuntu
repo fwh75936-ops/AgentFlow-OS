@@ -1,0 +1,36 @@
+# AgentFlow OS — AI computer sandbox, Ubuntu (default family)
+# ONE container shared by ALL agents: they share this environment, its
+# /workspace volume and its desktop. Agents never get their own containers.
+# Versions are selected with the BASE_IMAGE build arg (supported values are
+# the versions in the app catalogue: ubuntu:24.04, ubuntu:22.04); the built
+# image is tagged per version, e.g. agentflow/sandbox:ubuntu-24.04.
+# Same posture as docker/linux-workspace/Dockerfile (the original Ubuntu
+# image): XFCE + TigerVNC + noVNC, non-root user, /workspace shared dir.
+ARG BASE_IMAGE=ubuntu:24.04
+FROM ${BASE_IMAGE}
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DISPLAY=:1 \
+    VNC_PORT=5901 \
+    NOVNC_PORT=6080
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      xfce4-session xfce4-panel xfwm4 xfdesktop4 xfce4-terminal thunar \
+      tigervnc-standalone-server tigervnc-tools websockify novnc \
+      dbus-x11 x11-xserver-utils \
+      python3 python3-pip python3-pytest bash coreutils procps sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Non-root runtime user. sudo is NOT granted: agents run unprivileged and
+# high-risk commands go through AgentFlow's human-approval gate instead.
+RUN useradd -m -s /bin/bash agentflow && mkdir -p /workspace && chown agentflow:agentflow /workspace
+
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+USER agentflow
+WORKDIR /workspace
+EXPOSE 6080
+# VNC itself (5901) is localhost-only inside the container (tigervnc -localhost
+# yes) and is never published; only noVNC is published, bound to 127.0.0.1 by compose.
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

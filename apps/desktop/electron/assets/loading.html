@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>AgentFlow OS</title>
+<style>
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #FFFFFF; color: #202020; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .box { width: 420px; max-width: 86vw; text-align: center; }
+  .brand { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .sub { color: #777777; font-size: 13px; margin-top: 4px; }
+  .spinner {
+    width: 30px; height: 30px; margin: 30px auto 14px; border-radius: 50%;
+    border: 3px solid #E8E8E5; border-top-color: #3978C6;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .status { font-size: 14px; }
+  .error-box {
+    display: none; text-align: left; margin-top: 16px; padding: 12px 14px;
+    background: #FDF3F3; border: 1px solid #F3D2D0; border-left: 3px solid #D9534F;
+    border-radius: 8px; font-size: 13px; line-height: 1.6;
+  }
+  .error-box .log {
+    margin-top: 8px; padding: 8px; background: #FFFFFF; border: 1px solid #F3D2D0;
+    border-radius: 6px; font-family: Consolas, monospace; font-size: 11.5px;
+    color: #777777; white-space: pre-wrap; word-break: break-all;
+    max-height: 130px; overflow-y: auto;
+  }
+  button {
+    display: none; margin: 16px auto 0; padding: 7px 18px; font-size: 13.5px;
+    background: #242424; color: #FFFFFF; border: 0; border-radius: 8px; cursor: pointer;
+  }
+  button:hover { background: #383838; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <img src="icon.png" width="54" height="54" alt="" style="border-radius: 12px; margin-bottom: 12px;" />
+    <div class="brand">AgentFlow OS</div>
+    <div class="sub">多智能体桌面工作空间</div>
+    <div class="spinner" id="spinner"></div>
+    <div class="status" id="status">正在启动后端服务…</div>
+    <div class="error-box" id="error-box">
+      <div id="error-text"></div>
+      <div class="log" id="error-log"></div>
+    </div>
+    <button id="retry" type="button">重试启动</button>
+  </div>
+  <script src="loading.js"></script>
+</body>
+</html>

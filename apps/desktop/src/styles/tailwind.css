@@ -1,0 +1,7 @@
+/* Tailwind CSS v3 layers for the shadcn/ui + Kibo UI component system.
+ * Preflight is disabled in tailwind.config.js, so the base layer does not
+ * reset anything: the hand-written globals.css remains the foundation and
+ * these utilities/components layers sit on top of it. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

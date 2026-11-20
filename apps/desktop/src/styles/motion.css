@@ -1,0 +1,153 @@
+/* AgentFlow OS — Motion token layer (AgentFlow Pure Light)
+ *
+ * CSS half of the motion design system. Values mirror
+ * src/motion/tokens.ts exactly — keep the two in sync.
+ *
+ * Scope: token-driven color transitions, keyframe entrances for
+ * page/modal/menu layers, press feedback, and low-intensity status
+ * pulses. Layout animation, exit animation and shared-element moves
+ * belong to the `motion` JS engine (see MOTION_UPGRADE_PLAN.md,
+ * decision (a)) — never drive the same property from both layers.
+ *
+ * Wired into main.tsx since stage 3 of the upgrade.
+ */
+
+:root {
+  /* Durations (ms) */
+  --motion-duration-instant: 80ms;
+  --motion-duration-fast: 120ms;
+  --motion-duration-normal: 180ms;
+  --motion-duration-medium: 240ms;
+  --motion-duration-slow: 320ms;
+
+  /* Easings — same curves as EASING in tokens.ts */
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-layout: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Color-only transitions (hover / focus / selected / status).
+     Uses the Pure Light tokens defined in globals.css. */
+  --motion-color-transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+/* ---------- Keyframes (transform + opacity only) ---------- */
+
+@keyframes motion-page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes motion-item-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes motion-modal-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes motion-menu-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes motion-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Low-intensity status pulse for in-progress states only
+   (thinking / working / verifying). Never apply to idle, completed
+   or failed states, and never to avatars or large surfaces. */
+@keyframes motion-status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ---------- Utility classes ---------- */
+
+/* Page content entrance. Apply once on mount — pair with a marker so
+   keep-alive page switches do not replay it. */
+.motion-page-enter {
+  animation: motion-page-in var(--motion-duration-normal) var(--motion-ease-standard) both;
+}
+
+/* Single new list item / chat message entrance. Only the newly added
+   node gets this class; never re-apply to a whole list. */
+.motion-item-enter {
+  animation: motion-item-in var(--motion-duration-normal) var(--motion-ease-standard) both;
+}
+
+.motion-modal-enter {
+  animation: motion-modal-in 200ms var(--motion-ease-standard) both;
+}
+
+.motion-menu-enter {
+  animation: motion-menu-in 140ms var(--motion-ease-standard) both;
+}
+
+.motion-fade-enter {
+  animation: motion-fade-in var(--motion-duration-normal) var(--motion-ease-standard) both;
+}
+
+/* Press feedback for plain-CSS buttons (where the motion engine is
+   not driving the element): scale 1 → 0.985 while active. */
+.motion-press {
+  transition:
+    transform var(--motion-duration-instant) var(--motion-ease-standard),
+    var(--motion-color-transition);
+}
+.motion-press:active { transform: scale(0.985); }
+
+/* Color-only hover/focus/state transitions for token-driven elements. */
+.motion-color {
+  transition: var(--motion-color-transition);
+}
+
+/* In-progress status dot. Color comes from the semantic token of the
+   element it sits in (background: var(--info) etc. set by caller). */
+.motion-status-dot {
+  animation: motion-status-pulse 1600ms ease-in-out infinite;
+}
+
+/* Visible keyboard focus for interactive elements that opt in.
+   Uses the Pure Light info token; do not remove without replacement. */
+.motion-focusable:focus-visible {
+  outline: 2px solid var(--info);
+  outline-offset: 1px;
+}
+
+/* ---------- Reduced motion ----------
+   Movement, scaling and looping are disabled; essential state cues
+   (color, opacity of status) remain so meaning is not lost. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-instant: 0ms;
+    --motion-duration-fast: 0ms;
+    --motion-duration-normal: 0ms;
+    --motion-duration-medium: 0ms;
+    --motion-duration-slow: 0ms;
+  }
+
+  .motion-page-enter,
+  .motion-item-enter,
+  .motion-modal-enter,
+  .motion-menu-enter,
+  .motion-fade-enter {
+    animation: none;
+  }
+
+  .motion-press { transition: none; }
+  .motion-press:active { transform: none; }
+
+  .motion-status-dot { animation: none; opacity: 1; }
+
+  /* Safety net: no looping animation anywhere under reduced motion. */
+  *, *::before, *::after {
+    animation-iteration-count: 1 !important;
+  }
+}

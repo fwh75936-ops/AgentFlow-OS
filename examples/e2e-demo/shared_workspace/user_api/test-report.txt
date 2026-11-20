@@ -1,0 +1,4 @@
+user_api test report (tester session#3)
+command: /home/hatch/workspace/agentflow-os/services/agent-core/.venv/bin/python -m pytest -q (cwd=user_api)
+exit_code: 0
+result: 3 passed in 0.01s

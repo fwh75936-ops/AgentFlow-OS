@@ -1,0 +1,13 @@
+{
+  "name": "agentflow-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AgentFlow OS — Self-Evolving Multi-Agent Desktop Workspace",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev:web": "npm --prefix apps/desktop run dev",
+    "build:web": "npm --prefix apps/desktop run build",
+    "dev:core": "cd services/agent-core && ./.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000",
+    "test:core": "cd services/agent-core && ./.venv/bin/python -m pytest tests/ -q"
+  }
+}

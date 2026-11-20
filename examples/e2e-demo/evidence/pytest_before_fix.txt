@@ -1,0 +1,18 @@
+$ (tester session#3, cwd=user_api) /home/hatch/workspace/agentflow-os/services/agent-core/.venv/bin/python -m pytest -q
+exit_code=1
+--- stdout ---
+F..                                                                      [100%]
+=================================== FAILURES ===================================
+_________________ test_regular_user_cannot_access_admin_stats __________________
+
+    def test_regular_user_cannot_access_admin_stats():
+>       with pytest.raises(PermissionError):
+E       Failed: DID NOT RAISE PermissionError
+
+test_user_api.py:7: Failed
+=========================== short test summary info ============================
+FAILED test_user_api.py::test_regular_user_cannot_access_admin_stats - Failed...
+1 failed, 2 passed in 0.03s
+
+--- stderr ---
+

@@ -1,0 +1,1679 @@
+{
+  "meta": {
+    "run_at": "2026-11-17T02:23:49+00:00",
+    "python": "3.12.3",
+    "platform": "Linux-7.0.0-44-generic-x86_64-with-glibc2.39",
+    "agent_core": "/home/hatch/workspace/agentflow-os/services/agent-core",
+    "command": "services/agent-core/.venv/bin/python benchmarks/run_benchmark.py  (from repo root)",
+    "token_note": "No LLM calls in this benchmark; token usage = 0 / not involved for every run."
+  },
+  "groups": {
+    "single": {
+      "group": "single",
+      "part": "scheduler",
+      "runs": 6,
+      "successes": 1,
+      "failures": 5,
+      "total_seconds": 0.0002,
+      "repaired": 0,
+      "initially_failed": 0,
+      "success_rate": 0.1667,
+      "avg_seconds": 3.5e-05,
+      "repair_success_rate": null
+    },
+    "fixed": {
+      "group": "fixed",
+      "part": "scheduler",
+      "runs": 6,
+      "successes": 1,
+      "failures": 5,
+      "total_seconds": 0.0002,
+      "repaired": 0,
+      "initially_failed": 0,
+      "success_rate": 0.1667,
+      "avg_seconds": 3.8e-05,
+      "repair_success_rate": null
+    },
+    "round_robin": {
+      "group": "round_robin",
+      "part": "scheduler",
+      "runs": 6,
+      "successes": 3,
+      "failures": 3,
+      "total_seconds": 0.0002,
+      "repaired": 0,
+      "initially_failed": 0,
+      "success_rate": 0.5,
+      "avg_seconds": 3.2e-05,
+      "repair_success_rate": null
+    },
+    "adaptive": {
+      "group": "adaptive",
+      "part": "scheduler",
+      "runs": 6,
+      "successes": 6,
+      "failures": 0,
+      "total_seconds": 0.0002,
+      "repaired": 0,
+      "initially_failed": 0,
+      "success_rate": 1.0,
+      "avg_seconds": 3.3e-05,
+      "repair_success_rate": null
+    },
+    "self_loop_off": {
+      "group": "self_loop_off",
+      "part": "self_loop",
+      "runs": 3,
+      "successes": 0,
+      "failures": 3,
+      "total_seconds": 1.245,
+      "repaired": 0,
+      "initially_failed": 3,
+      "success_rate": 0.0,
+      "avg_seconds": 0.415,
+      "repair_success_rate": 0.0
+    },
+    "self_loop_on": {
+      "group": "self_loop_on",
+      "part": "self_loop",
+      "runs": 3,
+      "successes": 3,
+      "failures": 0,
+      "total_seconds": 2.4088,
+      "repaired": 3,
+      "initially_failed": 3,
+      "success_rate": 1.0,
+      "avg_seconds": 0.802933,
+      "repair_success_rate": 1.0
+    }
+  },
+  "runs": [
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S1_hard_coding_api",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 7.7e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.45,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.4275 (capability=0.45, success=0.55, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.45,
+            "historical_success": 0.55,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.4275
+        }
+      ],
+      "detail": "selected capability=0.45 (bar 0.85), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S2_research",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 4.3e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.5,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.44 (capability=0.5, success=0.6, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.44
+        }
+      ],
+      "detail": "selected capability=0.50 (bar 0.8), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S3_overloaded_expert",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.98,
+      "selected_load": 0.95,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.558 (capability=0.98, success=0.97, load=0.95)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.98,
+            "historical_success": 0.97,
+            "availability": 1.0,
+            "priority_fit": 0.65,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.95
+          },
+          "total": 0.558
+        }
+      ],
+      "detail": "selected capability=0.98 (bar 0.85), load=0.95 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S4_code_review",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 2.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.6,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.48 (capability=0.6, success=0.65, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.6,
+            "historical_success": 0.65,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.48
+        }
+      ],
+      "detail": "selected capability=0.60 (bar 0.78), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S5_easy_general",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 2e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.65,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.4925 (capability=0.65, success=0.7, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        }
+      ],
+      "detail": "selected capability=0.65 (bar 0.5), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "single",
+      "part": "scheduler",
+      "task_id": "S6_cost_sensitive",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 1.8e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.55,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.455 (capability=0.55, success=0.6, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.55,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        }
+      ],
+      "detail": "selected capability=0.55 (bar 0.65), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S1_hard_coding_api",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 6.3e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.45,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.45,
+            "historical_success": 0.55,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.2275
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.95,
+            "historical_success": 0.93,
+            "availability": 1.0,
+            "priority_fit": 0.975,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.2
+          },
+          "total": 0.6285
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.7,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        }
+      ],
+      "detail": "selected capability=0.45 (bar 0.85), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S2_research",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.6e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.5,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.24
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.93,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.825,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.15
+          },
+          "total": 0.6065
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.68,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.464
+        }
+      ],
+      "detail": "selected capability=0.50 (bar 0.8), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S3_overloaded_expert",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.4e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.98,
+      "selected_load": 0.95,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.98,
+            "historical_success": 0.97,
+            "availability": 1.0,
+            "priority_fit": 0.65,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.95
+          },
+          "total": 0.558
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.88,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.6315
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.4575
+        }
+      ],
+      "detail": "selected capability=0.98 (bar 0.85), load=0.95 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S4_code_review",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.2e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.6,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.6,
+            "historical_success": 0.65,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.28
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.9,
+            "historical_success": 0.91,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.602
+        }
+      ],
+      "detail": "selected capability=0.60 (bar 0.78), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S5_easy_general",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.3e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.65,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.8,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.3615
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.72,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.4,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4335
+        }
+      ],
+      "detail": "selected capability=0.65 (bar 0.5), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "fixed",
+      "part": "scheduler",
+      "task_id": "S6_cost_sensitive",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.3e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.55,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "fixed baseline: lowest-id eligible agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.55,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.97,
+            "historical_success": 0.95,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.451
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.78,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.1667,
+            "latency_norm": 0.1538,
+            "current_load": 0.1
+          },
+          "total": 0.536
+        }
+      ],
+      "detail": "selected capability=0.55 (bar 0.65), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S1_hard_coding_api",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.5e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.45,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 0 -> agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.45,
+            "historical_success": 0.55,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.2275
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.95,
+            "historical_success": 0.93,
+            "availability": 1.0,
+            "priority_fit": 0.975,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.2
+          },
+          "total": 0.6285
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.7,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        }
+      ],
+      "detail": "selected capability=0.45 (bar 0.85), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S2_research",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.2e-05,
+      "attempts": 1,
+      "selected_agent_id": 2,
+      "selected_capability": 0.93,
+      "selected_load": 0.15,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 1 -> agent 2",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.24
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.93,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.825,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.15
+          },
+          "total": 0.6065
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.68,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.464
+        }
+      ],
+      "detail": "selected capability=0.93 (bar 0.8), load=0.15 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S3_overloaded_expert",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 3,
+      "selected_capability": 0.5,
+      "selected_load": 0.0,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 2 -> agent 3",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.98,
+            "historical_success": 0.97,
+            "availability": 1.0,
+            "priority_fit": 0.65,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.95
+          },
+          "total": 0.558
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.88,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.6315
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.4575
+        }
+      ],
+      "detail": "selected capability=0.50 (bar 0.85), load=0.00 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S4_code_review",
+      "task_type": "scheduling",
+      "success": false,
+      "duration_seconds": 3.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.6,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 3 -> agent 1",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.6,
+            "historical_success": 0.65,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.28
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.9,
+            "historical_success": 0.91,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.602
+        }
+      ],
+      "detail": "selected capability=0.60 (bar 0.78), load=0.10 (limit 0.9) -> below bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S5_easy_general",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 2,
+      "selected_capability": 0.8,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 4 -> agent 2",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.8,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.3615
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.72,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.4,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4335
+        }
+      ],
+      "detail": "selected capability=0.80 (bar 0.5), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "round_robin",
+      "part": "scheduler",
+      "task_id": "S6_cost_sensitive",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.2e-05,
+      "attempts": 1,
+      "selected_agent_id": 3,
+      "selected_capability": 0.78,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "round-robin baseline: rotation index 5 -> agent 3",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.55,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.97,
+            "historical_success": 0.95,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.451
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.78,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.1667,
+            "latency_norm": 0.1538,
+            "current_load": 0.1
+          },
+          "total": 0.536
+        }
+      ],
+      "detail": "selected capability=0.78 (bar 0.65), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S1_hard_coding_api",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.3e-05,
+      "attempts": 1,
+      "selected_agent_id": 2,
+      "selected_capability": 0.95,
+      "selected_load": 0.2,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 2 highest score 0.6285 (capability=0.95, success=0.93, load=0.2)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.45,
+            "historical_success": 0.55,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.2275
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.95,
+            "historical_success": 0.93,
+            "availability": 1.0,
+            "priority_fit": 0.975,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.2
+          },
+          "total": 0.6285
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.7,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.925,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        }
+      ],
+      "detail": "selected capability=0.95 (bar 0.85), load=0.20 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S2_research",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 2,
+      "selected_capability": 0.93,
+      "selected_load": 0.15,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 2 highest score 0.6065 (capability=0.93, success=0.9, load=0.15)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.24
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.93,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.825,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.15
+          },
+          "total": 0.6065
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.68,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.464
+        }
+      ],
+      "detail": "selected capability=0.93 (bar 0.8), load=0.15 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S3_overloaded_expert",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.1e-05,
+      "attempts": 1,
+      "selected_agent_id": 2,
+      "selected_capability": 0.88,
+      "selected_load": 0.0,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 2 highest score 0.6315 (capability=0.88, success=0.9, load=0.0)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.98,
+            "historical_success": 0.97,
+            "availability": 1.0,
+            "priority_fit": 0.65,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.95
+          },
+          "total": 0.558
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.88,
+            "historical_success": 0.9,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.6315
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.5,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.875,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.0
+          },
+          "total": 0.4575
+        }
+      ],
+      "detail": "selected capability=0.88 (bar 0.85), load=0.00 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S4_code_review",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.4e-05,
+      "attempts": 1,
+      "selected_agent_id": 3,
+      "selected_capability": 0.9,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 3 highest score 0.602 (capability=0.9, success=0.91, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.6,
+            "historical_success": 0.65,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.28
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.9,
+            "historical_success": 0.91,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.2,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.602
+        }
+      ],
+      "detail": "selected capability=0.90 (bar 0.78), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S5_easy_general",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.6e-05,
+      "attempts": 1,
+      "selected_agent_id": 1,
+      "selected_capability": 0.65,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 1 highest score 0.4925 (capability=0.65, success=0.7, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.65,
+            "historical_success": 0.7,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.4925
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.8,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.3615
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.72,
+            "historical_success": 0.75,
+            "availability": 1.0,
+            "priority_fit": 0.675,
+            "cost_norm": 0.4,
+            "latency_norm": 0.5,
+            "current_load": 0.1
+          },
+          "total": 0.4335
+        }
+      ],
+      "detail": "selected capability=0.65 (bar 0.5), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "adaptive",
+      "part": "scheduler",
+      "task_id": "S6_cost_sensitive",
+      "task_type": "scheduling",
+      "success": true,
+      "duration_seconds": 3.5e-05,
+      "attempts": 1,
+      "selected_agent_id": 3,
+      "selected_capability": 0.78,
+      "selected_load": 0.1,
+      "token_usage": 0,
+      "decision_reason": "adaptive: agent 3 highest score 0.536 (capability=0.78, success=0.82, load=0.1)",
+      "candidates": [
+        {
+          "agent_id": 1,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.55,
+            "historical_success": 0.6,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.0,
+            "latency_norm": 0.0,
+            "current_load": 0.1
+          },
+          "total": 0.455
+        },
+        {
+          "agent_id": 2,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.97,
+            "historical_success": 0.95,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 1.0,
+            "latency_norm": 1.0,
+            "current_load": 0.1
+          },
+          "total": 0.451
+        },
+        {
+          "agent_id": 3,
+          "eligible": true,
+          "filter_reason": "eligible",
+          "components": {
+            "capability_match": 0.78,
+            "historical_success": 0.82,
+            "availability": 1.0,
+            "priority_fit": 0.8,
+            "cost_norm": 0.1667,
+            "latency_norm": 0.1538,
+            "current_load": 0.1
+          },
+          "total": 0.536
+        }
+      ],
+      "detail": "selected capability=0.78 (bar 0.65), load=0.10 (limit 0.9) -> meets bar"
+    },
+    {
+      "group": "self_loop_off",
+      "part": "self_loop",
+      "task_id": "R1_permission_bug",
+      "task_type": "code_repair",
+      "success": false,
+      "duration_seconds": 0.4236,
+      "attempts": 1,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=0) -> FAILED",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=FAILED; repairs=[]; workspace=workspaces/R1_permission_bug__self_loop_off",
+      "first_verify_passed": false,
+      "final_state": "FAILED",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "FAILED",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "max retries reached or repeated identical error"
+        }
+      ],
+      "last_pytest_evidence_tail": "===========================\n_____________________ test_regular_user_denied_admin_panel _____________________\n\n    def test_regular_user_denied_admin_panel():\n>       assert can_access({\"name\": \"u1\", \"role\": \"user\"}, \"admin_panel\") is False\nE       AssertionError: assert True is False\nE        +  where True = can_access({'name': 'u1', 'role': 'user'}, 'admin_panel')\n\ntest_access_control.py:8: AssertionError\n=========================== short test summary info ============================\nFAILED test_access_control.py::test_regular_user_denied_admin_panel - Asserti...\n1 failed, 3 passed in 0.03s\n"
+    },
+    {
+      "group": "self_loop_off",
+      "part": "self_loop",
+      "task_id": "R2_validation_bug",
+      "task_type": "code_repair",
+      "success": false,
+      "duration_seconds": 0.4264,
+      "attempts": 1,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=0) -> FAILED",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=FAILED; repairs=[]; workspace=workspaces/R2_validation_bug__self_loop_off",
+      "first_verify_passed": false,
+      "final_state": "FAILED",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "FAILED",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "max retries reached or repeated identical error"
+        }
+      ],
+      "last_pytest_evidence_tail": "es(ValueError):\nE       Failed: DID NOT RAISE ValueError\n\ntest_user_validation.py:5: Failed\n_________________________ test_invalid_email_rejected __________________________\n\n    def test_invalid_email_rejected():\n>       with pytest.raises(ValueError):\nE       Failed: DID NOT RAISE ValueError\n\ntest_user_validation.py:9: Failed\n=========================== short test summary info ============================\nFAILED test_user_validation.py::test_empty_username_rejected - Failed: DID NO...\nFAILED test_user_validation.py::test_invalid_email_rejected - Failed: DID NOT...\n2 failed, 1 passed in 0.03s\n"
+    },
+    {
+      "group": "self_loop_off",
+      "part": "self_loop",
+      "task_id": "R3_discount_bug",
+      "task_type": "code_repair",
+      "success": false,
+      "duration_seconds": 0.395,
+      "attempts": 1,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=0) -> FAILED",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=FAILED; repairs=[]; workspace=workspaces/R3_discount_bug__self_loop_off",
+      "first_verify_passed": false,
+      "final_state": "FAILED",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "FAILED",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "max retries reached or repeated identical error"
+        }
+      ],
+      "last_pytest_evidence_tail": "tionError\n_________________________ test_discount_multiple_items _________________________\n\n    def test_discount_multiple_items():\n>       assert calculate_total([50.0, 50.0], discount_rate=0.25) == 75.0\nE       assert 100.0 == 75.0\nE        +  where 100.0 = calculate_total([50.0, 50.0], discount_rate=0.25)\n\ntest_pricing.py:10: AssertionError\n=========================== short test summary info ============================\nFAILED test_pricing.py::test_discount_applied - assert 100.0 == 90.0\nFAILED test_pricing.py::test_discount_multiple_items - assert 100.0 == 75.0\n2 failed, 1 passed in 0.03s\n"
+    },
+    {
+      "group": "self_loop_on",
+      "part": "self_loop",
+      "task_id": "R1_permission_bug",
+      "task_type": "code_repair",
+      "success": true,
+      "duration_seconds": 0.8034,
+      "attempts": 2,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=3) -> COMPLETE",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=COMPLETE; repairs=[\"attempt 0: matched 'permission: admin_panel requires role == 'admin''\"]; workspace=workspaces/R1_permission_bug__self_loop_on",
+      "first_verify_passed": false,
+      "final_state": "COMPLETE",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "REPAIR",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR"
+        },
+        {
+          "state": "EXECUTE",
+          "attempt": 1
+        },
+        {
+          "state": "REVERIFY",
+          "attempt": 1
+        },
+        {
+          "state": "COMPLETE",
+          "attempt": 1
+        }
+      ],
+      "last_pytest_evidence_tail": "....                                                                     [100%]\n4 passed in 0.01s\n"
+    },
+    {
+      "group": "self_loop_on",
+      "part": "self_loop",
+      "task_id": "R2_validation_bug",
+      "task_type": "code_repair",
+      "success": true,
+      "duration_seconds": 0.7847,
+      "attempts": 2,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=3) -> COMPLETE",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=COMPLETE; repairs=[\"attempt 0: matched 'validation: reject empty username and email without '@''\"]; workspace=workspaces/R2_validation_bug__self_loop_on",
+      "first_verify_passed": false,
+      "final_state": "COMPLETE",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "REPAIR",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR"
+        },
+        {
+          "state": "EXECUTE",
+          "attempt": 1
+        },
+        {
+          "state": "REVERIFY",
+          "attempt": 1
+        },
+        {
+          "state": "COMPLETE",
+          "attempt": 1
+        }
+      ],
+      "last_pytest_evidence_tail": "...                                                                      [100%]\n3 passed in 0.01s\n"
+    },
+    {
+      "group": "self_loop_on",
+      "part": "self_loop",
+      "task_id": "R3_discount_bug",
+      "task_type": "code_repair",
+      "success": true,
+      "duration_seconds": 0.8207,
+      "attempts": 2,
+      "selected_agent_id": null,
+      "selected_capability": null,
+      "selected_load": null,
+      "token_usage": 0,
+      "decision_reason": "SelfLoop(max_retries=3) -> COMPLETE",
+      "candidates": [],
+      "detail": "first_verify_passed=False; final_state=COMPLETE; repairs=[\"attempt 0: matched 'pricing: total = sum(prices) * (1 - discount_rate)'\"]; workspace=workspaces/R3_discount_bug__self_loop_on",
+      "first_verify_passed": false,
+      "final_state": "COMPLETE",
+      "history": [
+        {
+          "state": "EXECUTE",
+          "attempt": 0
+        },
+        {
+          "state": "VERIFY",
+          "attempt": 0
+        },
+        {
+          "state": "ANALYZE",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR",
+          "detail": "pytest exited with code 1"
+        },
+        {
+          "state": "REPAIR",
+          "attempt": 0,
+          "error_type": "VALIDATION_ERROR"
+        },
+        {
+          "state": "EXECUTE",
+          "attempt": 1
+        },
+        {
+          "state": "REVERIFY",
+          "attempt": 1
+        },
+        {
+          "state": "COMPLETE",
+          "attempt": 1
+        }
+      ],
+      "last_pytest_evidence_tail": "...                                                                      [100%]\n3 passed in 0.01s\n"
+    }
+  ]
+}

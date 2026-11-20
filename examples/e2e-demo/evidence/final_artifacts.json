@@ -1,0 +1,26 @@
+{
+  "viewed_by": "产品经理 (agent#1, read-only tools)",
+  "artifacts": [
+    {
+      "path": "user_api/test-report.txt",
+      "size": 188,
+      "version": 1,
+      "sha256": "c237c10cfb4f7c980b04cc1f525018c49a5e18745fbd3ff010af223c3b654f02",
+      "last_modified_by_agent_id": 3
+    },
+    {
+      "path": "user_api/test_user_api.py",
+      "size": 466,
+      "version": 1,
+      "sha256": "b48945e647b18ca5797cefb9f92b3e77a9534aa75d169530a646915dad322ac7",
+      "last_modified_by_agent_id": 2
+    },
+    {
+      "path": "user_api/user_api.py",
+      "size": 539,
+      "version": 2,
+      "sha256": "a03b151777f7d977b052ac99d3dc6564ff4a1283ec6a917d395fc0f5bbd8d7b7",
+      "last_modified_by_agent_id": 2
+    }
+  ]
+}

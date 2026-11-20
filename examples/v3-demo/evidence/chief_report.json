@@ -1,0 +1,117 @@
+{
+  "mission_id": 1,
+  "goal": "开发一个用户管理系统，完成后测试验证并汇报",
+  "status": "completed",
+  "llm_called": false,
+  "planner": "rule-based-keyword-v1",
+  "team_id": 1,
+  "chief_agent_id": 1,
+  "task_id": 1,
+  "nodes": [
+    {
+      "id": 1,
+      "name": "开发实现",
+      "status": "pending",
+      "assigned_agent_id": null
+    },
+    {
+      "id": 2,
+      "name": "测试验证",
+      "status": "pending",
+      "assigned_agent_id": null
+    },
+    {
+      "id": 3,
+      "name": "成果汇总汇报",
+      "status": "pending",
+      "assigned_agent_id": null
+    }
+  ],
+  "stagnation": {
+    "stagnant": false,
+    "consecutive_no_progress": 0,
+    "threshold": 2,
+    "action": "continue"
+  },
+  "artifacts": {
+    "projects/user-mgmt/user_api.py": {
+      "version": 2,
+      "hash": "6ace00ab9147c45924ad141016db2a06181a6fa00e64c256021234319cd19606",
+      "verification": {
+        "id": 2,
+        "artifact_path": "projects/user-mgmt/user_api.py",
+        "artifact_version": 2,
+        "source_hash": "6ace00ab9147c45924ad141016db2a06181a6fa00e64c256021234319cd19606",
+        "test_run_id": "v3demo-pytest-2",
+        "task_id": 1,
+        "node_id": null,
+        "passed": true,
+        "status": "current",
+        "evidence": "..                                                                       [100%]\n2 passed in 0.01s\n",
+        "created_at": "2026-11-17T02:34:34.111653"
+      },
+      "verified_current": true
+    },
+    "projects/user-mgmt/SPEC.md": {
+      "version": 1,
+      "hash": "a4cc51a174408b8efd384b1961484fb886e2f24e59eda1e37560b150978ac043",
+      "verification": null,
+      "verified_current": false
+    }
+  },
+  "evidence": [
+    "[2026-11-17T02:34:31] [team] chief=1 (tools=[]) team=1 pm=2 dev=3 tester=4",
+    "[2026-11-17T02:34:31] [plan] mission=1 nodes=['开发实现', '测试验证', '成果汇总汇报']",
+    "[2026-11-17T02:34:31] [sacas] sacas: agent 3 highest score 0.901 (resource_conflict_risk=0.0, env_readiness=1.0, dependency_readiness=1.0)",
+    "[2026-11-17T02:34:32] [dev-v1] wrote projects/user-mgmt/user_api.py v1 sha=bb8f0a4e224a",
+    "[2026-11-17T02:34:32] [test-v1] pytest exit=1",
+    "[2026-11-17T02:34:33] [proactive] suggestion #1 execution blocked before approval (correct)",
+    "[2026-11-17T02:34:33] [proactive] suggestion #1 approved -> executed",
+    "[2026-11-17T02:34:33] [handoff] handoff 0d2259f3-c597-47ef-9c63-6382102750be envVersion={'projects/user-mgmt/user_api.py': 1}",
+    "[2026-11-17T02:34:33] [dev-v2] wrote projects/user-mgmt/user_api.py v2 sha=6ace00ab9147",
+    "[2026-11-17T02:34:33] [stale] v1 verification status=stale after v2 write (flipped=1)",
+    "[2026-11-17T02:34:34] [test-v2] pytest exit=0"
+  ],
+  "task_status": "pending",
+  "proactive": {
+    "suggestion_id": 1,
+    "level": "L2",
+    "blocked_before_approval": true,
+    "after_approval": "executed"
+  },
+  "sacas": {
+    "reason": "sacas: agent 3 highest score 0.901 (resource_conflict_risk=0.0, env_readiness=1.0, dependency_readiness=1.0)",
+    "candidates": [
+      {
+        "agent_id": 3,
+        "eligible": true,
+        "filter_reason": "eligible",
+        "components": {
+          "capability_match": 0.92,
+          "historical_success": 0.5,
+          "availability": 1.0,
+          "priority_fit": 0.75,
+          "cost_norm": 0.0,
+          "latency_norm": 0.0,
+          "current_load": 0.0,
+          "resource_conflict_risk": 0.0,
+          "env_readiness": 1.0,
+          "dependency_readiness": 1.0
+        },
+        "total": 0.901
+      },
+      {
+        "agent_id": 4,
+        "eligible": false,
+        "filter_reason": "missing required tools: ['linux_file_write']",
+        "components": {},
+        "total": null
+      }
+    ],
+    "git_lease_id": 1,
+    "conflict_risk": {
+      "3": 0.0,
+      "4": 1.0
+    }
+  }
+}

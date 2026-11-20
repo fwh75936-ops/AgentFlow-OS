@@ -1,0 +1,8 @@
+$ (tester session#3, cwd=user_api) /home/hatch/workspace/agentflow-os/services/agent-core/.venv/bin/python -m pytest -q
+exit_code=0
+--- stdout ---
+...                                                                      [100%]
+3 passed in 0.01s
+
+--- stderr ---
+

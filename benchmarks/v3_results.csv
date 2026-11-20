@@ -1,0 +1,5 @@
+group,scheduler_mode,runs,success_rate,successes,avg_seconds,avg_seconds_std,resource_conflicts,human_interventions,stale_verifications_detected,stale_verifications_missed,self_loop_repair_success,repair_attempted,total_retries,avg_retries_per_run,token_usage,cost,llm_called
+A_fixed,fixed,18,0.3333,6,3.7e-05,1.8e-05,6,12,0,3,False,False,0,0.0,0,0,False
+B_adaptive,adaptive,18,0.1667,3,3.8e-05,1.5e-05,15,15,0,3,False,False,0,0.0,0,0,False
+C_sacas,sacas,18,0.8333,15,4.7e-05,1.9e-05,0,3,0,3,False,False,0,0.0,0,0,False
+D_sacas_stateaware_selfloop,sacas,18,0.8333,15,4.5e-05,1.7e-05,0,3,3,0,True,True,3,1.0,0,0,False

@@ -1,0 +1,51 @@
+# AgentFlow OS — AI computer sandbox. Exactly ONE service/container, shared
+# by every agent (never one container per agent).
+#
+# The distribution + version is the one the user picked in the app under
+# AI 电脑 → 沙箱系统 (stored by the backend, GET /api/workspace/sandbox).
+# One Dockerfile per distribution family; the version is chosen through the
+# BASE_IMAGE build arg. Match the three variables below to the app's choice:
+#
+#   选择              Dockerfile        BASE_IMAGE                        镜像标签
+#   Ubuntu 24.04 LTS  Dockerfile.ubuntu ubuntu:24.04                      agentflow/sandbox:ubuntu-24.04
+#   Ubuntu 22.04 LTS  Dockerfile.ubuntu ubuntu:22.04                      agentflow/sandbox:ubuntu-22.04
+#   Debian 13         Dockerfile.debian debian:13                         agentflow/sandbox:debian-13
+#   Debian 12         Dockerfile.debian debian:12                         agentflow/sandbox:debian-12
+#   CentOS Stream 10  Dockerfile.centos quay.io/centos/centos:stream10    agentflow/sandbox:centos-stream-10
+#   CentOS Stream 9   Dockerfile.centos quay.io/centos/centos:stream9     agentflow/sandbox:centos-stream-9
+#   Rocky Linux 10    Dockerfile.rocky  rockylinux:10                     agentflow/sandbox:rocky-10
+#   Rocky Linux 9     Dockerfile.rocky  rockylinux:9                      agentflow/sandbox:rocky-9
+#
+# Usage (on a host WITH Docker):
+#   docker compose -f deploy/sandbox/docker-compose.yml up -d --build
+services:
+  linux-sandbox:
+    build:
+      context: .
+      dockerfile: ${AGENTFLOW_SANDBOX_DOCKERFILE:-Dockerfile.ubuntu}
+      args:
+        BASE_IMAGE: ${AGENTFLOW_SANDBOX_BASE_IMAGE:-ubuntu:24.04}
+    image: ${AGENTFLOW_SANDBOX_IMAGE:-agentflow/sandbox:ubuntu-24.04}
+    container_name: agentflow-linux-sandbox
+    restart: unless-stopped
+    # Resource limits, same posture as docker/linux-workspace
+    cpus: "2.0"
+    mem_limit: 2048m
+    pids_limit: 256
+    # Security: no privileged mode, no docker.sock, no host sensitive dirs,
+    # all capabilities dropped, no privilege escalation.
+    privileged: false
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      # The ONLY mount: the shared workspace itself.
+      - shared_workspace:/workspace
+    ports:
+      # noVNC bound to host loopback ONLY — never exposed to the public network.
+      # VNC port 5901 is intentionally NOT published.
+      - "127.0.0.1:6080:6080"
+    environment:
+      - AGENTFLOW_ENV_ID=shared-linux-1
+
+volumes:
+  shared_workspace:

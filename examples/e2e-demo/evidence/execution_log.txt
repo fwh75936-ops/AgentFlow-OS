@@ -1,0 +1,13 @@
+[2026-11-17T02:34:21] [1-agents] created pm#1 dev#2 tester#3 team#1 task#1; pm tools=['linux_file_read', 'linux_file_list'] (no linux_exec)
+[2026-11-17T02:34:21] [1-scheduler] adaptive: coding->开发工程师 (adaptive: agent 2 highest score 0.56 (capability=0.95, success=0.5, load=0.0)); review->测试工程师 (adaptive: agent 3 highest score 0.551 (capability=0.92, success=0.5, load=0.0))
+[2026-11-17T02:34:21] [1-pm-permission] PM linux_exec refused by Tool Registry: PERMISSION_ERROR: agent lacks permission for tool: linux_exec
+[2026-11-17T02:34:21] [2-sessions] all sessions on env shared-linux-1: pm session#1, dev session#2, tester session#3
+[2026-11-17T02:34:22] [3-dev-create] wrote user_api/user_api.py v1 sha256=a142247f6a85…, user_api/test_user_api.py v1; `ls -la user_api` rc=0
+[2026-11-17T02:34:23] [4-tester-fail] tester pytest exit_code=1 (real failure); tester cwd='user_api', dev cwd='' (isolated)
+[2026-11-17T02:34:24] [5-repair] attempt 0: tester->dev ERROR_REPORT saved; dev rewrote user_api.py with role check
+[2026-11-17T02:34:25] [5-self-loop] Self-Loop final=COMPLETE, history states=['EXECUTE', 'VERIFY', 'ANALYZE', 'REPAIR', 'EXECUTE', 'REVERIFY', 'COMPLETE']; ERROR_REPORT rows=1
+[2026-11-17T02:34:26] [6-tester-pass] tester re-run exit_code=0; VerificationRecord saved (passed=True, score=1.0); test-report.txt written
+[2026-11-17T02:34:27] [x-desktop-lease] tester held lease#1; dev queued (position 1); tester released -> dev granted; dev released. No conflict.
+[2026-11-17T02:34:27] [7-pm-view] PM read user_api.py v2 sha256=a03b151777f7… and test-report.txt; 3 artifact files listed with hashes
+[2026-11-17T02:34:27] [x-audit] 4 command audit rows (executor/task/exit_code all present); 16 workspace events incl. ['desktop_lease_acquired', 'desktop_lease_granted', 'desktop_lease_released', 'desktop_lease_waiting']
+[2026-11-17T02:34:27] [done] E2E demo COMPLETE — all steps verified against real state

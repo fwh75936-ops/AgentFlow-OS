@@ -1,0 +1,31 @@
+# Shared Linux Workspace — exactly ONE service/container for all agents.
+# Usage (on a host WITH Docker):
+#   docker compose -f docker/linux-workspace/docker-compose.yml up -d --build
+# Then point the Agent Core at it: the backend manages sessions/leases/audit
+# over its API; agents share the `shared_workspace` volume mounted at /workspace.
+services:
+  linux-workspace:
+    build: .
+    container_name: agentflow-linux-workspace
+    restart: unless-stopped
+    # Resource limits (spec: CPU / memory / disk / process count)
+    cpus: "2.0"
+    mem_limit: 2048m
+    pids_limit: 256
+    # Security: no privileged mode, no docker.sock, no host sensitive dirs,
+    # all capabilities dropped, no privilege escalation.
+    privileged: false
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      # The ONLY mount: the shared workspace itself.
+      - shared_workspace:/workspace
+    ports:
+      # noVNC bound to host loopback ONLY — never exposed to the public network.
+      # VNC port 5901 is intentionally NOT published.
+      - "127.0.0.1:6080:6080"
+    environment:
+      - AGENTFLOW_ENV_ID=shared-linux-1
+
+volumes:
+  shared_workspace:
