@@ -1,77 +1,83 @@
 # AgentFlow OS
 
 **基于自适应调度与可信验证的多智能体桌面工作空间**
-Self-Evolving Multi-Agent Desktop Workspace
 
-让用户创建多个 AI 数字员工，为其分配角色、技能、工具、记忆与执行环境，通过自然语言或可视化工作流分配复杂任务；系统自动规划任务 DAG、按能力画像调度 Agent、执行工具、验证结果、修复错误，并记录全过程。
+AgentFlow OS 把 AI Agent 当作员工来组织：你创建多名 AI 员工，给他们分配岗位、技能、工具和记忆，组建团队，再把复杂任务交给他们。系统负责拆解任务、按能力派单、监督执行、验证成果，并在出错时自动修复——全过程有记录、可复盘。
 
-## 核心创新
+## 功能
 
-1. **自适应调度**：硬约束过滤（状态/工具/能力）+ 归一化综合评分（能力匹配、历史成功率、可用性、优先级适配 − 成本 − 延迟 − 负载），每次决策落库可解释；执行反馈用指数移动平均更新 Agent 画像。提供 fixed / round_robin / adaptive 三种模式做对比实验。
-2. **可信验证**：四层验证均已实现并落库——结构验证（JSON Schema/必填/文件存在）、规则验证、工具验证（真实运行 pytest 并保存输出证据）、Reviewer 交叉验证（独立评审复核产出与证据，并与状态感知验证联动）。
-3. **Self-Loop 自我修复**：EXECUTE→VERIFY→ANALYZE→REPAIR→REVERIFY→COMPLETE/FAILED 状态机，最大重试/时间预算/重复错误检测，禁止无限循环。
+- **AI 员工与团队**：每名员工有岗位职责、能力画像、可用工具和专属记忆；员工可组队，团队有负责人和群聊，群聊里 @ 谁谁接活，也可以把目标交给总管自动组织。
+- **任务调度（SACAS）**：任务被拆成带依赖的任务图。派单先过硬约束（状态、工具、能力门槛），再按能力匹配、历史成功率、成本、延迟和当前负载综合评分选人；每次决策的评分构成都落库可查。执行结果会以指数移动平均反馈更新员工画像，派单越用越准。
+- **可信验证**：员工说完成不算数。系统依次做结构验证、规则验证、工具验证（真实运行测试并保存输出）和独立评审，成果每次变更都会生成新版本，旧验证自动过期。
+- **Self-Loop 自我修复**：验证不通过时进入修复循环——分析错误、重新执行、再次验证，有重试上限、时间预算和重复错误检测，不会无限打转。
+- **工作流编排**：在画布上拖节点、连线，保存的工作流图会编译成任务图由同一执行器真实运行，不是画着看的图。
+- **共享 Linux 工作区**：多名员工共用一台 Linux 电脑，各自有独立终端会话，图形桌面同一时间只由一名员工操作（控制权租约），文件带版本管理。
+- **工具与扩展**：内置文件、终端、浏览器等工具，统一经过权限校验和高风险审批；支持接入 MCP 工具服务器和技能包。
+- **知识记忆**：导入的文档会被分块索引，员工执行任务时自动检索相关片段作为上下文。
+- **AI 工作室**：像素风的办公室视图，员工与真实 Agent 一一对应，谁在干活、谁在休息，看状态就知道。
 
-## 技术栈
+## 下载与安装
 
-Electron（contextIsolation、受限 preload、CSP）+ React TypeScript + Vite + React Flow + Zustand ｜ Python 3.12 FastAPI + SQLAlchemy + SQLite + Pydantic ｜ OpenAI 兼容 API ｜ 测试：Pytest / TypeScript strict。桌面端共 13 个功能页面，全部接入真实后端 API。
+Windows 发行版在 [Releases](https://github.com/fwh75936-ops/AgentFlow-OS/releases) 页面下载：
 
-## 目录
+- `AgentFlow OS Setup 0.1.7.exe`：安装包，双击安装。
+- `AgentFlow-OS-0.1.7-win.zip`：免安装版，解压后运行 `AgentFlow OS.exe`。
 
-```
-apps/desktop/          Electron(main/preload) + React 前端(src: app/pages/components/stores/services/styles/types)
-services/agent-core/   FastAPI 后端(app: api/scheduler/verification/self_loop/execution/tools/llm/models/schemas)
-packages/              shared-types、workflow-schema
-docs/                  DEVLOG.md（真实开发与验证记录）、ROADMAP.md（P0/P1/P2 倒排）
-examples/              比赛演示任务说明（5 Agent 协作开发 + 权限 Bug 故障注入）
-```
+首次启动后，在「设置」页添加你的大模型供应商（接口地址 + API Key），即可创建员工并执行任务。
 
-## 快速开始（开发模式）
+## 从源码运行
+
+环境要求：Node.js 20+、Python 3.12+。
 
 ```bash
-# 后端
+# 后端（Agent Core 服务）
 cd services/agent-core
 python3 -m venv .venv && ./.venv/bin/pip install -r requirements.txt
 ./.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
-curl http://127.0.0.1:8000/health
+# 健康检查：curl http://127.0.0.1:8000/health
 
-# 前端（仓库根目录执行 npm install，workspaces 会提升依赖）
-cd ../.. && npm install
-npm run dev:web        # http://localhost:5173（/api 自动代理到 :8000）
-
-# 测试
-npm run test:core      # pytest（当前 64 个用例全部通过）
-npm run build:web      # tsc --noEmit (strict) + vite build
+# 前端（仓库根目录）
+npm install
+npm run dev:web        # http://localhost:5173，/api 自动代理到 :8000
+npm run dev            # 或以 Electron 桌面应用方式启动
 ```
 
-使用流程：设置页添加模型供应商 → 测试连接/拉取模型 → 创建 Agent（选模型、能力、工具）→ 组建团队 → 在任务中心创建并执行任务 → 在可信验证页查看调度决策与验证证据。
+上手顺序：设置页添加模型供应商并测试连接 → 创建 AI 员工（选模型、岗位、工具）→ 组建团队 → 在任务中心发布任务，或把目标直接交给总管。
 
-## 真实性原则
+## 架构
 
-禁止假数据冒充功能：没有可用模型供应商时，任务执行会明确失败并记录 `MODEL_ERROR`；未运行的实验指标显示「未测试」；Docker 已安装并完成两轮尝试（基础镜像拉取成功，受虚拟机命名空间权限限制容器无法启动，镜像构建与容器运行未完成验证）；Windows 免安装版 win-unpacked 已真实产出（约 189 MB），NSIS 安装包未产出、未在 Windows 真机验证安装（见 docs/DEVLOG.md、docs/ROADMAP.md）。
+三层结构，桌面端不保存业务数据，全部状态以本地服务为准：
 
-## 环境要求
+- **桌面端**（Electron + React TypeScript）：13 个功能页面，负责操作与展示。
+- **Agent Core 服务**（FastAPI + SQLAlchemy + SQLite）：调度、执行、验证、自循环、总管、工作流、工具注册表、MCP 接入、知识记忆、团队群聊等模块，模块之间只通过数据库状态和明确接口衔接。
+- **执行层**：模型调用走统一客户端（OpenAI 兼容接口）；工具调用统一过注册表做权限与审批；员工在共享 Linux 工作区里真实执行命令和操作文件。
 
-Node.js 20+（开发实测 v24.22.1）+ npm｜Python 3.12+｜（可选）Electron 桌面运行环境。Docker 与 Windows 打包为可选部署方式，见下方已知问题。
+## 技术栈
 
-## 系统架构（简述）
+Electron · React 18 + TypeScript + Vite · Tailwind CSS + shadcn/ui · React Flow · Zustand ｜ Python 3.12 · FastAPI · SQLAlchemy · SQLite · Pytest
 
-Electron 主进程拉起本地 Python 服务（FastAPI，`127.0.0.1:8000`）→ React 前端经 HTTP/WebSocket 调用 → 后端内含调度引擎（`app/scheduler`）、验证引擎（`app/verification`）、Self-Loop（`app/self_loop`）、执行器（`app/execution`）、工具注册表（`app/tools`）与共享 Linux 工作区（`app/workspace`，多 Agent 共用同一环境、各自独立终端会话），状态统一落 SQLite。详细设计见技术方案书与 `docs/`。
+## 项目结构
 
-## 配置说明
+```
+apps/desktop/          Electron 主进程与 React 前端
+services/agent-core/   FastAPI 后端（调度 / 执行 / 验证 / 自循环 / 工作区 / MCP / 记忆）
+packages/              shared-types、workflow-schema
+examples/              示例任务与示例 MCP 服务器
+benchmarks/            调度模式与 Self-Loop 的对比实验
+docs/                  开发日志与路线图
+```
 
-- 模型供应商：在应用「设置」页添加（base_url + API Key，存数据库），不使用环境变量传 Key。
-- 环境变量：全部可选项及默认值见仓库根目录 `.env.example`（只列代码真实读取的变量；后端不自动加载 `.env`，需 export 后启动）。
+## 配置
 
-## 演示与实验
+- 模型供应商在应用「设置」页里添加，Key 保存在本地数据库，不经过环境变量。
+- 可选环境变量及默认值见根目录 `.env.example`。
 
-- 比赛演示任务（5 Agent 协作开发 + 权限 Bug 故障注入 + 共享工作区/调度对比演示步骤）：见 `examples/demo-task.md`。
-- 对比实验（调度四模式 × Self-Loop 开关，真实运行）：`benchmarks/run_benchmark.py`，结果与方法见 `benchmarks/summary.md`、复现说明见 `benchmarks/README.md`。
+## 测试
 
-## 已知问题
-
-- 当前开发环境为 Linux：Docker 已安装并两轮尝试，基础镜像（ubuntu:24.04）拉取成功，但容器因虚拟机命名空间权限（setns 被拒）无法启动，镜像构建/容器运行未验证；Windows 免安装版 win-unpacked 已产出，NSIS 安装包（`npm run dist:win`）未产出、安装未在真机验证，需在对应环境补验（见 `docs/DEVLOG.md`、`docs/ROADMAP.md`）。
-- 未配置可用模型供应商时，依赖 LLM 的任务会明确以 MODEL_ERROR 失败（预期行为）；不依赖 LLM 的共享工作区与 benchmarks 实验可独立运行。
-- 系统托盘已接入（显示/隐藏/退出菜单）；自动更新已预留 electron-updater 接入点，但**当前无发布源，默认禁用**：仅当打包后的应用设置了 `AGENTFLOW_UPDATE_URL`（真实 generic 更新源）时才启用检查，未配置时主进程日志会如实打印 disabled。
+```bash
+npm run test:core      # 后端 pytest
+npm run build:web      # TypeScript 严格模式检查 + 前端构建
+```
 
 ## 许可证
 

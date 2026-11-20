@@ -40,4 +40,4 @@ AgentFlow OS 的界面组件体系直接采用以下开源组件源码（均保�
 - 来源：https://github.com/phaserjs/phaser（npm 包 `phaser@3.90.0`）
 - 用途：仅用于「AI 工作室」页面的 2D 像素办公室渲染（`apps/desktop/src/features/pixel-studio/`），按需动态加载，不接管 React 应用
 - 许可证：MIT（Copyright (c) 2025 Richard Davey, Phaser Studio）
-- 美术素材说明：工作室的全部像素素材（人物、家具、地图、气泡图标）均为本项目原创、运行时程序化绘制，未使用任何第三方游戏素材或参考项目的代码与资源。Pixel Agents / Claude Office / Pixel Office / SkyOffice 仅作产品形态参考，未复制其代码或素材。
+- 美术素材说明：工作室的全部像素素材（人物、家具、地图、气泡图标）均在运行时程序化绘制，未使用第三方游戏素材。

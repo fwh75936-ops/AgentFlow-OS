@@ -108,16 +108,16 @@ npm run build          # 复跑成功：tsc --noEmit（strict）无错误；vite
 
 ## 三轮欠账清零工程（2026-11-17）
 
-逐项把前三轮「明确未验证/后续迭代」欠账清零，全部增量实现、原创代码（外部项目仅学机制思路，未复制代码），结案报告见 `~/workspace/agentflow-round3/COMPLETION_REPORT.md`。
+逐项把前三轮「明确未验证/后续迭代」欠账清零，全部增量实现，结案报告见 `~/workspace/agentflow-round3/COMPLETION_REPORT.md`。
 
 - 基线复验：pytest 37 passed、前端 build、e2e 与 v3 demo 各 exit 0 后开工。
-- Computer Use 真实 GUI：装 xdotool 升级 `app/computer_use`（有效 DISPLAY 自动取共享桌面 :1、租约门禁、move 回读校验、click、高风险组合键未批准返回 awaiting_confirmation——思路借鉴 OpenHands 的风险门机制设计，原创实现）；`tests/test_computer_use.py` 2 passed，真实终端打字执行命令落盘为证，截图 `docs/assets/computer-use-{before,after}.png`。
-- Reviewer 交叉验证（验证第四层）：新表 `ReviewVerification` + 原创 `app/verification/reviewer.py`（reviewer 须具 review 能力且 ≠ 作者、成果变版联动 stale）；4 passed。思路借鉴 AutoGen Reflection 的固定裁决结构与 CrewAI guardrail 的重试上限设计，原创实现。
-- 工作流图驱动执行：原创 `app/workflows/engine.py`（图编译→TaskNode DAG→既有 runner；工具节点经 Tool Registry 按被分配 Agent 权限执行；环/不支持类型拒绝）；3 passed。思路借鉴 LangGraph 图编译与检查点、Dify 变量池寻址的机制设计，原创实现。
-- 团队群聊 + @Agent：原创 `app/teams/chat.py`（@ 解析为结构化路由字段并生成 MENTION 定向消息）；前端 Teams 群聊面板；4 passed。
-- 知识库检索：原创 `app/memory/search.py`（父子分块 + FTS5 BM25 + 手写 TF-IDF 余弦混合，对外口径如实标注「关键词+TF-IDF 混合检索，非神经嵌入」）；4 passed。思路借鉴 Dify「文档结构与索引技术分层」的机制设计，原创实现。
-- MCP 真实链路：原创 `app/mcp/client.py`（stdio JSON-RPC：initialize→notifications/initialized→tools/list 分页→tools/call；pending-request 映射、stderr 分离、命名空间 `mcp.<server>.<tool>` 注册进 Tool Registry）；随仓示例 server `examples/mcp-server/server.py`；4 passed。
-- chief 停滞信号：借鉴 Magentic-One 停滞计数器思路，给总管加 `assess_stagnation` 纯信号函数并写入报告 `stagnation` 字段，不动调度引擎；4 passed。另确认：无任何参考项目做数值能力评分调度，自适应/SACAS 为原创。
+- Computer Use 真实 GUI：装 xdotool 升级 `app/computer_use`（有效 DISPLAY 自动取共享桌面 :1、租约门禁、move 回读校验、click、高风险组合键未批准返回 awaiting_confirmation）；`tests/test_computer_use.py` 2 passed，真实终端打字执行命令落盘为证，截图 `docs/assets/computer-use-{before,after}.png`。
+- Reviewer 交叉验证（验证第四层）：新表 `ReviewVerification` + `app/verification/reviewer.py`（reviewer 须具 review 能力且 ≠ 作者、成果变版联动 stale）；4 passed。
+- 工作流图驱动执行：`app/workflows/engine.py`（图编译→TaskNode DAG→既有 runner；工具节点经 Tool Registry 按被分配 Agent 权限执行；环/不支持类型拒绝）；3 passed。
+- 团队群聊 + @Agent：`app/teams/chat.py`（@ 解析为结构化路由字段并生成 MENTION 定向消息）；前端 Teams 群聊面板；4 passed。
+- 知识库检索：`app/memory/search.py`（父子分块 + FTS5 BM25 + 手写 TF-IDF 余弦混合，对外口径如实标注「关键词+TF-IDF 混合检索，非神经嵌入」）；4 passed。
+- MCP 真实链路：`app/mcp/client.py`（stdio JSON-RPC：initialize→notifications/initialized→tools/list 分页→tools/call；pending-request 映射、stderr 分离、命名空间 `mcp.<server>.<tool>` 注册进 Tool Registry）；随仓示例 server `examples/mcp-server/server.py`；4 passed。
+- chief 停滞信号：给总管加 `assess_stagnation` 纯信号函数并写入报告 `stagnation` 字段，不动调度引擎；4 passed。
 - 非 root 实证：新建用户 agentflow（uid 1000）独立 venv 启动后端，health ok、`is_root: False`、会话 exec whoami=agentflow（日志 `agentflow-round3/nonroot-run.log`）。
 - Docker 尝试：docker.io/compose 安装成功；默认 dockerd 因 VM 无 CAP_NET_ADMIN 失败，降级参数可启动，但 Docker Hub 拉取 ubuntu:24.04 TLS 超时，镜像未构建（证据 `agentflow-round3/docker-attempt.log`）。
 - Electron 窗口级验收：显示 :1 实拍 `docs/assets/electron-window.png`；过程中真修 5 个 Bug（pythonService 路径少算一层、vite base 改相对、file: 协议 API 回退 127.0.0.1、CORS 加 "null" 源、preload 改 CommonJS .cjs）。已知竞态：窗口先于后端就绪时首批请求失败停在错误态，刷新恢复（未做自动重试）。
