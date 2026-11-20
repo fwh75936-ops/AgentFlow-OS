@@ -62,8 +62,7 @@ Electron · React 18 + TypeScript + Vite · Tailwind CSS + shadcn/ui · React Fl
 apps/desktop/          Electron 主进程与 React 前端
 services/agent-core/   FastAPI 后端（调度 / 执行 / 验证 / 自循环 / 工作区 / MCP / 记忆）
 packages/              shared-types、workflow-schema
-examples/              示例任务与示例 MCP 服务器
-benchmarks/            调度模式与 Self-Loop 的对比实验
+examples/              示例 MCP 服务器
 docs/                  开发日志与路线图
 ```
 
