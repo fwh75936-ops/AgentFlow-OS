@@ -75,4 +75,4 @@ Electron 主进程拉起本地 Python 服务（FastAPI，`127.0.0.1:8000`）→ 
 
 ## 许可证
 
-MIT（见 LICENSE）。参考项目（Grok Bot / Dify / LangGraph / CrewAI 等）仅借鉴功能设计与架构思想，不复制其界面、商标或代码。
+MIT（见 LICENSE）。
